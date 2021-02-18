@@ -15,5 +15,7 @@ namespace QuotesAPI.Models
 
         public string Description { get; set; }
 
+        public string Type { get; set; }
+
     }
 }

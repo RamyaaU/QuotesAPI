@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using QuotesAPI.Data;
 using QuotesAPI.Models;
 using System;
@@ -24,9 +25,10 @@ namespace QuotesAPI.Controllers
 
         // GET: api/<Quotes>
         [HttpGet]
-        public IEnumerable<Quote> Get()
+        public IActionResult Get()
         {
-            return _quotesDbContext.Quotes;
+            return Ok(_quotesDbContext.Quotes);
+   
         }
 
         // GET api/<Quotes>/5

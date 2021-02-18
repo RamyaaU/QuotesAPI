@@ -34,7 +34,7 @@ namespace QuotesAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, QuotesDBContext quotesDBContext)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -46,7 +46,7 @@ namespace QuotesAPI
             }
 
             app.UseHttpsRedirection();
-            quotesDBContext.Database.EnsureCreated();
+            //quotesDBContext.Database.EnsureCreated();
             app.UseMvc();
         }
     }
