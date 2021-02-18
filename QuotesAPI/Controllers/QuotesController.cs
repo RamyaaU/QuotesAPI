@@ -33,13 +33,18 @@ namespace QuotesAPI.Controllers
         [HttpGet("{id}")]
         public string Get(int id)
         {
+            //built in method - find
+           var quote = _quotesDbContext.Quotes.Find(id);
             return "value";
         }
 
         // POST api/<Quotes>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Quote quote)
         {
+            _quotesDbContext.Quotes.Add(quote);
+            //saves changes done in db
+            _quotesDbContext.SaveChanges();
         }
 
         // PUT api/<Quotes>/5
