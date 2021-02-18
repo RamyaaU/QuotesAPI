@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using QuotesAPI.Data;
 using QuotesAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace QuotesAPI.Controllers
 {
@@ -12,36 +14,44 @@ namespace QuotesAPI.Controllers
     [ApiController]
     public class QuotesController : ControllerBase
     {
-        List<Quote> _quotes = new List<Quote>()
-        {
-            new Quote(){Id=0,Author="Emily",Description="The brain is wider than the sky",Title="Inspirational"},
-            new Quote(){Id=1, Author="Chetan Bhagath",Description="Revolution",Title="Fiction"},
-            new Quote(){Id=2,Author="Richard Bach",Description="True Love stories never have endings",Title="Love stories"},
-            new Quote(){Id=3,Author="Carol",Description="Only I Can change myself",Title="Fiction"}
-        };
 
+        private QuotesDBContext _quotesDbContext;
+
+        public QuotesController(QuotesDBContext quotesDBContext)
+        {
+            _quotesDbContext = quotesDBContext;
+        }
+
+        // GET: api/<Quotes>
         [HttpGet]
         public IEnumerable<Quote> Get()
         {
-            return _quotes;
+            return _quotesDbContext.Quotes;
         }
 
+        // GET api/<Quotes>/5
+        [HttpGet("{id}")]
+        public string Get(int id)
+        {
+            return "value";
+        }
+
+        // POST api/<Quotes>
         [HttpPost]
-        public void Post([FromBody]Quote quote)
+        public void Post([FromBody] string value)
         {
-            _quotes.Add(quote);
         }
 
+        // PUT api/<Quotes>/5
         [HttpPut("{id}")]
-        public void Put(int id,[FromBody]Quote quote)
+        public void Put(int id, [FromBody] string value)
         {
-            _quotes[id] = quote;
         }
 
+        // DELETE api/<Quotes>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            _quotes.RemoveAt(id);
         }
     }
 }
